@@ -1,9 +1,5 @@
 <?php
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "hackathon";
-
+include "db_connection.php";
 session_start();
 
 $data = mysqli_connect($host, $user, $password, $db);
