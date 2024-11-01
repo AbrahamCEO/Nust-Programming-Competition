@@ -43,6 +43,7 @@ nav ul li a, .register-btn {
     padding: 5px 10px;
 }
 
+
 .register-btn {
     background-color: #ffba08;
     border-radius: 5px;
@@ -386,4 +387,17 @@ nav ul li a:hover {
 .sponsor-logo:hover img {
     transform: scale(1.1); /* Slightly enlarge on hover */
 }
-
+li .buttons button{
+    border-radius:20px;
+        background-color: #1e3a6a;
+    color: #eee;
+        letter-spacing: 3px;
+        font-family: Poppins, sans-serif;
+        font-weight: 50;
+        padding: 2px 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease; 
+    }
+    li .buttons button:hover{
+        background-color: white!important;
+    }

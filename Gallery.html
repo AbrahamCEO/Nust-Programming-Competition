@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - NUST Annual Competition</title>
+    <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+    <header>
+            <div class="header-logo">
+                <img src="./IMAGES NUST/NUST.png" alt="University Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a  href="home.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a class="active" href="Gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li>  
+                        <div class="buttons">
+                        <a href="signup.php" target="_blank">
+                            <button>REGISTER NOW</button>
+                        </a>
+                    </div>
+                </ul>
+            </nav>
+       
+    </header>
+
+
+    <main>
+        <section>
+            <h1>Gallery</h1>
+            <hr>
+            <p>Explore highlights from past competitions, including moments of creativity, teamwork, and celebration.</p>
+        </section>
+        <section class="gallery">
+            <!-- Gallery Items -->
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="/IMAGES NUST/SPEAKING1.png" alt="Opening Ceremony">
+                <div class="caption">Opening Ceremony</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="/IMAGES NUST/GROUP2.png" alt="Participants and Judges 2023">
+                <div class="caption">Participants and Judges 2023</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="/IMAGES NUST/WINERS.png" alt="Winners 2023">
+                <div class="caption">Winners 2023</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="/IMAGES NUST/SPEAKING2.png" alt="Sponsors Representative">
+                <div class="caption">Sponsors Representative</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="/IMAGES NUST/WATCHIG 1.png" alt="Viewers enjoying Project presentations">
+                <div class="caption">Viewers enjoying Project presentations</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6BUoIoc1-z-TS6CmpHxqW09Py6h94LuQU_g&s" alt="Winners 2022">
+                <div class="caption">Winners 2022</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox(this)">
+                <img src="https://www.nust.na/sites/default/files/styles/medium/public/news/2024-07/DSC07691.JPG?itok=M81JG4bg" alt="Viewers enjoying Project presentations">
+                <div class="caption">Viewers enjoying Project presentations</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox for interactive view -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+        <button class="prev" onclick="previousImage(event)">Previous</button>
+        <img id="lightbox-img" src="" alt="Large Image">
+        <button class="next" onclick="nextImage(event)">Next</button>
+    </div>
+
+    
+    <footer>
+        <p>&copy; 2024 NUST Annual Competition. All rights reserved.</p>
+    </footer>
+
+    <script src="gallery.js"></script>
+</body>
+</html>

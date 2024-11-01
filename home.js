@@ -34,15 +34,24 @@ function showSlider(type) {
     let thumbnailItemsDom = thumbnailBorderDom.querySelectorAll('.item');
 
     if (type === 'next') {
-        SliderDom.appendChild(SliderItemsDom[0]);
-        thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+        // Move the first item to the end
+        let firstSliderItem = SliderItemsDom[0];
+        let firstThumbnailItem = thumbnailItemsDom[0];
+
+        SliderDom.appendChild(firstSliderItem); // Move the first item to the end
+        thumbnailBorderDom.appendChild(firstThumbnailItem); // Move the corresponding thumbnail to the end
         carouselDom.classList.add('next');
     } else {
-        SliderDom.prepend(SliderItemsDom[SliderItemsDom.length - 1]);
-        thumbnailBorderDom.prepend(thumbnailItemsDom[thumbnailItemsDom.length - 1]);
+        // Move the last item to the beginning
+        let lastSliderItem = SliderItemsDom[SliderItemsDom.length - 1];
+        let lastThumbnailItem = thumbnailItemsDom[thumbnailItemsDom.length - 1];
+
+        SliderDom.prepend(lastSliderItem); // Move the last item to the start
+        thumbnailBorderDom.prepend(lastThumbnailItem); // Move the corresponding thumbnail to the start
         carouselDom.classList.add('prev');
     }
 
+    // Remove transition class after a short delay
     clearTimeout(runTimeOut);
     runTimeOut = setTimeout(() => {
         carouselDom.classList.remove('next');
@@ -54,3 +63,19 @@ function showSlider(type) {
         nextDom.click();
     }, timeAutoNext);
 }
+
+// Optional: Prevent rapid clicking from interfering with transitions
+nextDom.addEventListener('click', function() {
+    clearTimeout(runNextAuto);
+    runNextAuto = setTimeout(() => {
+        nextDom.click();
+    }, timeAutoNext);
+});
+
+prevDom.addEventListener('click', function() {
+    clearTimeout(runNextAuto);
+    runNextAuto = setTimeout(() => {
+        nextDom.click();
+    }, timeAutoNext);
+});
+
