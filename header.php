@@ -1,9 +1,3 @@
-<?php
-if (!isset($_SESSION["username"])) {
-    header("location:login.php");
-    exit();
-}
-?>
 
 <header class="bg-white py-3">
     <div class="container d-flex justify-content-between align-items-center">
@@ -33,7 +27,6 @@ if (!isset($_SESSION["username"])) {
         <!-- Register Online Button and User Info -->
         <div class="header-info d-flex align-items-center">
             <a href="register.php" class="btn btn-primary text-white mr-3 w-50" style="border-radius: 20px; padding: 3px 10px; font-size: 13px">Register Online</a>
-            <span class="welcome-msg text-dark">Welcome, <?php echo htmlspecialchars($_SESSION["username"]); ?></span>
             <a href="logout.php" class="btn btn-danger ml-3">Logout</a>
         </div>
     </div>

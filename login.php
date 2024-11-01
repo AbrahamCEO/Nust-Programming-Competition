@@ -8,23 +8,23 @@ if ($data === false) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["username"];
+    $email = $_POST["email"];
     $password = $_POST["password"];
 
     // Use prepared statements to prevent SQL injection
-    $stmt = $data->prepare("SELECT id, username, usertype FROM login WHERE username = ? AND password = ?");
-    $stmt->bind_param("ss", $username, $password);
+    $stmt = $data->prepare("SELECT id, email, usertype FROM login WHERE email = ? AND password = ?");
+    $stmt->bind_param("ss", $email, $password); // changed to $email
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 
     // Check if the user exists and fetch usertype
     if ($row) {
-        $_SESSION["username"] = $row["username"];
+        $_SESSION["email"] = $row["email"];
         $_SESSION["user_id"] = $row["id"]; // Store user_id in the session
 
         if ($row["usertype"] == "user") {
-            header("location:userhome.php");
+            header("location:home.php");
             exit;
         } elseif ($row["usertype"] == "admin") {
             header("location:adminhome.php");
@@ -53,8 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php endif; ?>
             <form action="#" method="POST">
                 <div class="input-group">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" required>
+                    <label for="email">Email</label>
+                    <input type="text" name="email" required>
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>

@@ -1,9 +1,5 @@
 <?php
 session_start();
-if (!isset($_SESSION["username"])) {
-    header("location:login.php");
-    exit();
-}
 
 include "db_connection.php"; // Database connection
 include "header.php"; // Include the header component

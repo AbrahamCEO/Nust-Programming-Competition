@@ -1,7 +1,7 @@
 <?php
 // Start session and check if user is logged in
 session_start();
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit;
 }
@@ -91,7 +91,7 @@ if (!$result) {
         <h1>Admin Dashboard</h1>
     </div>
     <div class="header-right">
-        <p class="welcome-msg">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</p>
+
         <a href="logout.php" class="logout-btn">Logout</a>
     </div>
 </header>

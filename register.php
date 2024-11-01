@@ -1,50 +1,70 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
 session_start();
-if (!isset($_SESSION["username"]) || !isset($_SESSION["user_id"])) {
-    header("location:login.php");
-    exit;
-}
 
 include "db_connection.php"; // Database connection
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate and sanitize inputs
-    $type_of_institution = $_POST['type_of_institution'] ?? '';
-    $affiliation = $_POST['affiliation'] ?? '';
-    $past_participation = $_POST['past_participation'] ?? '';
-    $preferred_language = $_POST['preferred_language'] ?? '';
-    $preferred_ide = $_POST['preferred_ide'] ?? '';
-    $name = $_POST['name'] ?? '';
-    $surname = $_POST['surname'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $contact_number = $_POST['contact_number'] ?? '';
-    $mentor_name = $_POST['mentor_name'] ?? '';
-    $mentor_email = $_POST['mentor_email'] ?? '';
-    $mentor_contact = $_POST['mentor_contact'] ?? '';
+    $type_of_institution = mysqli_real_escape_string($conn, $_POST['type_of_institution'] ?? '');
+    $affiliation = mysqli_real_escape_string($conn, $_POST['affiliation'] ?? '');
+    $past_participation = mysqli_real_escape_string($conn, $_POST['past_participation'] ?? '');
+    $preferred_language = mysqli_real_escape_string($conn, $_POST['preferred_language'] ?? '');
+    $preferred_ide = mysqli_real_escape_string($conn, $_POST['preferred_ide'] ?? '');
+    $name = mysqli_real_escape_string($conn, $_POST['name'] ?? '');
+    $surname = mysqli_real_escape_string($conn, $_POST['surname'] ?? '');
+    $email = mysqli_real_escape_string($conn, $_POST['email'] ?? '');
+    $password = $_POST['password'] ?? ''; // New password field
+    $contact_number = mysqli_real_escape_string($conn, $_POST['contact_number'] ?? '');
+    $mentor_name = mysqli_real_escape_string($conn, $_POST['mentor_name'] ?? '');
+    $mentor_email = mysqli_real_escape_string($conn, $_POST['mentor_email'] ?? '');
+    $mentor_contact = mysqli_real_escape_string($conn, $_POST['mentor_contact'] ?? '');
 
-    // Get the user ID from the session
-    $user_id = $_SESSION["user_id"]; // Assuming user_id is stored in session when the user logs in
+    // Hash the password for security
+    // $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // Basic validation
-    if ($type_of_institution && $affiliation && $past_participation && $preferred_language &&
-        $preferred_ide && $name && $surname && $email && $contact_number &&
-        $mentor_name && $mentor_email && $mentor_contact) {
+    // Basic validation for required fields
+    if (!empty($type_of_institution) && !empty($affiliation) && !empty($past_participation) && 
+        !empty($preferred_language) && !empty($preferred_ide) && !empty($name) && 
+        !empty($surname) && !empty($email) && !empty($contact_number) && 
+        !empty($mentor_name) && !empty($mentor_email) && !empty($mentor_contact) && 
+        !empty($password)) {
 
-        // Save to database
-        $query = "INSERT INTO registered (user_id, type_of_institution, affiliation, past_participation, preferred_language, 
-                  preferred_ide, name, surname, email, contact_number, mentor_name, mentor_email, mentor_contact, registration_date) 
-                  VALUES ('$user_id', '$type_of_institution', '$affiliation', '$past_participation', '$preferred_language', 
-                  '$preferred_ide', '$name', '$surname', '$email', '$contact_number', 
-                  '$mentor_name', '$mentor_email', '$mentor_contact', CURDATE())";
+        // Insert into registered table
+        $registered_query = "INSERT INTO registered (type_of_institution, affiliation, past_participation, 
+                          preferred_language, preferred_ide, name, surname, email, 
+                          contact_number, mentor_name, mentor_email, mentor_contact, registration_date) 
+                          VALUES ('$type_of_institution', '$affiliation', '$past_participation', 
+                          '$preferred_language', '$preferred_ide', '$name', '$surname', 
+                          '$email', '$contact_number', '$mentor_name', '$mentor_email', 
+                          '$mentor_contact', CURDATE())";
 
-        if (mysqli_query($conn, $query)) {
+        // Insert into login table
+        $login_query = "INSERT INTO login (email, password) VALUES ('$email', '$password')";
+
+        // Start transaction
+        mysqli_begin_transaction($conn);
+        try {
+            // Execute the first query
+            if (!mysqli_query($conn, $registered_query)) {
+                throw new Exception("Error inserting into registered table: " . mysqli_error($conn));
+            }
+            
+            // Execute the second query
+            if (!mysqli_query($conn, $login_query)) {
+                throw new Exception("Error inserting into login table: " . mysqli_error($conn));
+            }
+            
+            // Commit transaction
+            mysqli_commit($conn);
             echo "Registration successful!";
             header("location:userhome.php");
-        } else {
-            echo "Error: " . mysqli_error($conn);
+            exit();
+        } catch (Exception $e) {
+            // Rollback transaction in case of error
+            mysqli_rollback($conn);
+            echo "Registration failed: " . $e->getMessage();
         }
     } else {
         echo "All fields are required!";
@@ -111,26 +131,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <div style="margin-bottom: 15px;">
+            <label for="password" style="font-weight: bold; display: block; margin-bottom: 5px;">Password:</label>
+            <input type="password" name="password" id="password" required style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
             <label for="contact_number" style="font-weight: bold; display: block; margin-bottom: 5px;">Contact Number:</label>
             <input type="tel" name="contact_number" id="contact_number" required style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
         </div>
 
         <div style="margin-bottom: 15px;">
-            <label for="mentor_name" style="font-weight: bold; display: block; margin-bottom: 5px;">Mentor's Name:</label>
+            <label for="mentor_name" style="font-weight: bold; display: block; margin-bottom: 5px;">Mentor Name:</label>
             <input type="text" name="mentor_name" id="mentor_name" required style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
         </div>
 
         <div style="margin-bottom: 15px;">
-            <label for="mentor_email" style="font-weight: bold; display: block; margin-bottom: 5px;">Mentor's Email:</label>
+            <label for="mentor_email" style="font-weight: bold; display: block; margin-bottom: 5px;">Mentor Email:</label>
             <input type="email" name="mentor_email" id="mentor_email" required style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
         </div>
 
         <div style="margin-bottom: 15px;">
-            <label for="mentor_contact" style="font-weight: bold; display: block; margin-bottom: 5px;">Mentor's Contact:</label>
+            <label for="mentor_contact" style="font-weight: bold; display: block; margin-bottom: 5px;">Mentor Contact:</label>
             <input type="tel" name="mentor_contact" id="mentor_contact" required style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;">
         </div>
 
-        <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">Register</button>
+        <button type="submit" style="width: 100%; padding: 10px; border-radius: 4px; border: none; background-color: #007bff; color: white; font-size: 16px;">Register</button>
     </form>
 </body>
 </html>
