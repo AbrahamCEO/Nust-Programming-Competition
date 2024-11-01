@@ -148,6 +148,11 @@ if (!$result) {
                 <input type="hidden" name="competition_id" value="' . htmlspecialchars($competition['id']) . '">
                 <button type="submit" class="delete-btn">Delete</button>
               </form>';
+              
+        echo '<form action="edit_competition.php" method="PUT" onsubmit="return">
+            <input type="hidden" name="competition_id" value="' . htmlspecialchars($competition['id']) . '">
+            <button type="submit" class="edit-btn">Edit</button>
+            </form>';
         echo '</div>';
     }
     ?>

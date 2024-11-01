@@ -4,23 +4,32 @@ session_start();
 
 $data = mysqli_connect($host, $user, $password, $db);
 if ($data === false) {
-    die("connection error");
+    die("Connection error");
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    $sql = "SELECT * FROM login WHERE username = '" . $username . "' AND password = '" . $password . "'";
-    $result = mysqli_query($data, $sql);
-    $row = mysqli_fetch_array($result);
+    // Use prepared statements to prevent SQL injection
+    $stmt = $data->prepare("SELECT id, username, usertype FROM login WHERE username = ? AND password = ?");
+    $stmt->bind_param("ss", $username, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
 
-    if ($row["usertype"] == "user") {
-        $_SESSION["username"] = $username;
-        header("location:userhome.php");
-    } elseif ($row["usertype"] == "admin") {
-        $_SESSION["username"] = $username;
-        header("location:adminhome.php");
+    // Check if the user exists and fetch usertype
+    if ($row) {
+        $_SESSION["username"] = $row["username"];
+        $_SESSION["user_id"] = $row["id"]; // Store user_id in the session
+
+        if ($row["usertype"] == "user") {
+            header("location:userhome.php");
+            exit;
+        } elseif ($row["usertype"] == "admin") {
+            header("location:adminhome.php");
+            exit;
+        }
     } else {
         $error_message = "Username or password incorrect";
     }
