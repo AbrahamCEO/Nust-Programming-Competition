@@ -1,0 +1,389 @@
+/* General Styling */
+/* General Reset */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Header Styling */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 50px;
+    position: sticky; /* Makes the header sticky */
+    top: 0; /* Sticks the header at the top */
+    z-index: 1000; /* Ensures header stays above other content */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for separation */
+    background-color: white;
+    color: #1e3a6a;
+}
+
+.header-logo img {
+    height: 50px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+}
+
+nav ul li a, .register-btn {
+    color: #1e3a6a;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+.register-btn {
+    background-color: #ffba08;
+    border-radius: 5px;
+}
+
+.register-btn:hover {
+    background-color: #e3a308;
+}
+
+/* Hero Section Styling */
+.hero {
+    position: relative;
+    overflow: hidden;
+    height: 70vh; /* Adjusted height for a shorter hero section */
+}
+
+.hero .carousel {
+    position: relative;
+    height: 100%; /* Ensure carousel takes full height */
+}
+
+.carousel .list {
+    display: flex;
+    transition: transform 0.8s ease-in-out; /* Smooth sliding transition */
+}
+
+.carousel .item {
+    position: relative;
+    min-width: 100%;
+    height: 100%; /* Ensure carousel items take full height */
+    overflow: hidden;
+}
+
+.carousel .item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures images cover the container without distortion */
+}
+
+/* Content Styling for Carousel */
+.carousel .list .item .content {
+    position: absolute;
+    top: 20%;
+    left: 5%;  /* Positioning on the left */
+    width: 40%;  /* Control the width of content */
+    padding: 20px;  /* Padding for readability */
+    background-color: rgba(0, 0, 0, 0.6);  /* Semi-transparent background */
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+    border-radius: 10px;  /* Rounded corners */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);  /* Shadow for depth */
+}
+
+/* Title, Author, Topic, Description Styles */
+.carousel .list .item .content .author,
+.carousel .list .item .content .title,
+.carousel .list .item .content .topic,
+.carousel .list .item .content .des {
+    margin-bottom: 15px;  /* Spacing between elements */
+}
+
+.carousel .list .item .content .title {
+    font-size: 2.5em;  /* Adjusted font size */
+    line-height: 1.2em;
+    font-weight: bold;
+}
+
+.carousel .list .item .content .topic {
+    font-size: 1.5em; /* Adjusted font size */
+    color: #f1683a;
+}
+
+.carousel .list .item .content .buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.carousel .list .item .content .buttons button {
+ border-radius:20px;
+    background-color: #1e3a6a;
+color: #eee;
+    letter-spacing: 3px;
+    font-family: Poppins, sans-serif;
+    font-weight: 500;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth button hover effect */
+}
+
+.carousel .list .item .content .buttons button:hover {
+    background-color: #244784; /* Button color change on hover */
+}
+
+.carousel .list .item .content .buttons button:nth-child(2) {
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #eee;
+}
+
+/* About Competition Section */
+.about-competition {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px;
+    background-color: #ffffff;
+    gap: 30px; /* Space between text and image */
+}
+
+.about-content {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.about-content h2 {
+    font-size: 2em;
+    color: #1e3a6a;
+    margin-bottom: 15px;
+}
+
+.about-content p {
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.6;
+}
+
+.learn-more-btn {
+    display: inline-block;
+    background-color: #1e3a6a;
+    color: #fff;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    border-radius: 15px;
+}
+
+.learn-more-btn:hover {
+    background-color: #ffba08;
+}
+
+/* Image Container */
+.about-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.about-image {
+    max-width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.about-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+#prev, #next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+    background-color: rgb(255, 255, 255); /* Initial background color */
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%; /* Circular buttons */
+    width: 50px; /* Fixed width for circular shape */
+    height: 50px; /* Fixed height for circular shape */
+    display: flex; /* Centers text inside */
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    opacity: 0; /* Initially hidden */
+    pointer-events: none; /* Prevents interaction when hidden */
+}
+
+#prev {
+    left: 10px;
+}
+
+#next {
+    right: 10px;
+}
+
+.carousel:hover #prev,
+.carousel:hover #next {
+    opacity: 1; /* Show buttons on hover */
+    pointer-events: auto; /* Enables interaction on hover */
+}
+
+@keyframes slideBounce {
+    0% {
+        transform: translateY(-50%) translateX(-100%); /* Start from left */
+        opacity: 0; /* Initially hidden */
+    }
+    50% {
+        transform: translateY(-50%) translateX(10px); /* Move into the frame */
+        opacity: 1; /* Become visible */
+    }
+    100% {
+        transform: translateY(-50%) translateX(0); /* Final position */
+    }
+}
+#prev:hover, #next:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Dark background on hover */
+    color: white; /* Change text color on hover */
+}
+
+
+
+.button-link {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #000000;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: Poppins, sans-serif;
+    font-weight: 500;
+    letter-spacing: 3px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.button-link:hover {
+    background-color: #f1683a; /* Button color change on hover */
+    color: white;
+}
+
+/* Footer Styling */
+footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #1e3a6a;
+    color: white;
+}
+
+.footer-contact, .footer-judges {
+    flex: 1;
+}
+
+.footer-judges a {
+    color: #ffba08;
+    text-decoration: none;
+}
+
+/* Active Link Styling */
+nav ul li a.active {
+    text-decoration: underline;
+}
+
+/* Hover Effect for Links */
+nav ul li a:hover {
+    background-color: #1e3a6a; /* Background color on hover */
+    color: white; /* Text color on hover */
+}
+
+/* Miscellaneous Styles */
+.thumbnail {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.thumbnail .item {
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.thumbnail .item:hover {
+    opacity: 1;
+}
+.important-dates {
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff; /* Light blue background for contrast */
+}
+
+.dates-container {
+    display: flex;
+    justify-content: center; /* Center the boxes */
+    flex-wrap: wrap; /* Allow wrapping of boxes */
+    gap: 20px; /* Space between boxes */
+}
+
+.date-box {
+    background-color: #ffffff; /* White background for each box */
+    border: 1px solid #1e3a6a; /* Blue border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.1); /* Subtle blue shadow for depth */
+    width: 200px; /* Fixed width for boxes */
+    padding: 15px; /* Padding inside boxes */
+    text-align: left; /* Align text to the left */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+.date-box:hover {
+    transform: translateY(-10px) scale(1.05); /* Lift and scale on hover */
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2); /* Darker blue shadow on hover */
+}
+
+.date-box strong {
+    color: #1e3a6a; /* Blue color for the strong text */
+}
+.date-box p{
+    font-weight: bold;
+}
+.meet-our-sponsors {
+    text-align: left;
+    padding: 20px;
+    background-color:  white; /* Light blue background */
+}
+
+.meet-our-sponsors h2 {
+    margin-bottom: 20px; /* Space below the heading */
+    color: #1e3a6a; /* Blue color for the heading */
+}
+
+.sponsors-container {
+    display: flex;
+    justify-content: center; /* Center the logos */
+    flex-wrap: wrap; /* Allow wrapping of logos */
+    gap: 20px; /* Space between logos */
+}
+
+
+.sponsor-logo img {
+    max-width: 150px; /* Limit the logo width */
+    height: auto; /* Maintain aspect ratio */
+    transition: transform 0.3s ease; /* Smooth scale transition */
+}
+
+.sponsor-logo:hover img {
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
