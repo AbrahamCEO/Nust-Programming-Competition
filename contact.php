@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,17 +29,9 @@
         </div>
         <nav>
             <ul>
-<<<<<<< HEAD
-                <li><a  href="home.php">Home</a></li>
-                <li><a href="about.php">About</a></li>
-                <li><a href="schedule.php">Schedule</a></li>
-                <li><a href="judges.php">Judges</a></li>
-                <li><a class="active" href="contact.php">Contact</a></li>
-=======
                 <li><a href="home.php">Home</a></li>
                 <li><a href="about.php">About</a></li>
                 <li><a  href="gallery.php">Gallery</a></li>
-                <li><a href="sponsors.php">Sponsors</a></li>
                 <li><a class="active" href="contact.php">Contact</a></li>
                 <li>
                     <div class="buttons">
@@ -57,11 +52,8 @@
                     </div>
                 </li>
                 <li>
-                    <div class="buttons">
-                        <button class="btn btn-info" onclick="showBroadcasts()">Notifications</button>
-                    </div>
+                  
                 </li>
->>>>>>> 2edf3a4fddbffe9d0dfd7c41715d1711699d72f4
             </ul>
         </nav>
     </header>
@@ -114,7 +106,7 @@
             nnashandi@nust.na </p>
       </div>
       <div>
-      <img src="./assets/assets/media/people/female.png">
+      <img src="./assets/assets/media/people/male.png">
       <p><span>Dr Ambrose Azeta </span>Lecturer<br>+264 81 3643798  <br>Email:
         aazeta@nust.na   </p>
         </div>

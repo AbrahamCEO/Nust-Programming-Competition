@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +22,7 @@
                 <li><a href="home.php">Home</a></li>
                 <li><a href="about.php">About</a></li>
                 <li><a class="active" href="gallery.php">Gallery</a></li>
-                <li><a href="sponsors.php">Sponsors</a></li>
+               
                 <li><a href="contact.php">Contact</a></li>
                 <li>
                     <div class="buttons">
@@ -40,9 +43,7 @@
                     </div>
                 </li>
                 <li>
-                    <div class="buttons">
-                        <button class="btn btn-info" onclick="showBroadcasts()">Notifications</button>
-                    </div>
+        
                 </li>
             </ul>
         </nav>

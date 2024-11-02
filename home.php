@@ -61,7 +61,6 @@ session_start();
                 <li><a class="active" href="home.php">Home</a></li>
                 <li><a href="about.php">About</a></li>
                 <li><a href="gallery.php">Gallery</a></li>
-                <li><a href="sponsors.php">Sponsors</a></li>
                 <li><a href="contact.php">Contact</a></li>
                 <li>
                     <div class="buttons">
@@ -195,7 +194,7 @@ session_start();
         <div class="about-content">
             <h2>What is the NUST Programming Competition?</h2>
             <p>The programming competition is an annual event established by the Faculty of Computing and Informatics (FCI) to encourage critical thinking, problem-solving, and enhance participants’ interests in computing. Learners and students from various high schools and tertiary institutions are invited to participate.</p>
-            <a href="about.html" class="learn-more-btn">Learn More</a>
+            <a href="about.php" class="learn-more-btn">Learn More</a>
         </div>
         <div class="about-image-container">
             <div class="about-image">
