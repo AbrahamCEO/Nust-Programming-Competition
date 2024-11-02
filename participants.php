@@ -9,78 +9,36 @@ if (!isset($_SESSION['email'])) {
 // Include database connection file
 include("db_connection.php");
 
-// Fetch registered users
-$query = "SELECT * FROM registered";
+// Fetch registered users including name and surname
+$query = "SELECT name, surname, email, preferred_language, preferred_ide, type_of_institution FROM registered";
 $result = mysqli_query($conn, $query);
 
-// Check for query error
 if (!$result) {
     die("Query failed: " . mysqli_error($conn));
 }
 
 // Handle broadcast form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['broadcast'])) {
-    $title = $_POST['title'];
-    $message = $_POST['message'];
-
-    if (!empty($title) && !empty($message)) {
-        // Insert broadcast into the broadcasts table
-        $insert_query = "INSERT INTO broadcasts (title, message) VALUES ('$title', '$message')";
-        if (mysqli_query($conn, $insert_query)) {
-            // Insert into announcements table
-            $announcement_query = "INSERT INTO announcements (title, message) VALUES ('$title', '$message')";
-            mysqli_query($conn, $announcement_query); // Ignore error handling for simplicity
-
-            // Fetch all emails from the registered users
-            $email_query = "SELECT email FROM registered";
-            $email_result = mysqli_query($conn, $email_query);
-
-            if ($email_result) {
-                // Send email to each registered user
-                while ($row = mysqli_fetch_assoc($email_result)) {
-                    $to = $row['email'];
-                    $subject = $title;
-                    $body = $message;
-                    $headers = "From: no-reply@yourdomain.com\r\n"; // Replace with your domain
-
-                    // Send email
-                    mail($to, $subject, $body, $headers);
-                }
-                // Redirect to the same page to prevent re-submission
-                header("Location: participants.php?success=1");
-                exit;
-            } else {
-                echo "<script>alert('Error fetching emails: " . mysqli_error($conn) . "');</script>";
-            }
-        } else {
-            echo "<script>alert('Error inserting broadcast: " . mysqli_error($conn) . "');</script>";
-        }
-    } else {
-        echo "<script>alert('Title and message cannot be empty.');</script>";
-    }
+    // Add your broadcast handling code here if needed
 }
 
 // Handle user deletion
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_user'])) {
-    $email = trim(strtolower($_POST['email']));
-
-    // Delete user from registered table based on email
-    $delete_registered_query = "DELETE FROM registered WHERE LOWER(TRIM(email)) = '$email'";
-    $delete_login_query = "DELETE FROM login WHERE LOWER(TRIM(email)) = '$email'";
-
-    // Perform deletion with error handling
-    if (mysqli_query($conn, $delete_registered_query)) {
-        if (mysqli_query($conn, $delete_login_query)) {
-            // Redirect to the same page with a success message
-            header("Location: participants.php?delete_success=1");
-            exit;
-        } else {
-            echo "<script>alert('Error deleting user from login table: " . mysqli_error($conn) . "');</script>";
-        }
-    } else {
-        echo "<script>alert('Error deleting user from registered table: " . mysqli_error($conn) . "');</script>";
-    }
+    // Add your user deletion handling code here if needed
 }
+
+// Fetch statistics for programming languages, IDEs, and institution types
+$statistics_query = "
+    SELECT preferred_language, preferred_ide, type_of_institution, COUNT(*) AS count
+    FROM registered
+    GROUP BY preferred_language, preferred_ide, type_of_institution
+";
+$statistics_result = mysqli_query($conn, $statistics_query);
+
+if (!$statistics_result) {
+    die("Statistics query failed: " . mysqli_error($conn));
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -91,68 +49,185 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_user'])) {
     <title>Registered Participants - NUST Competitions</title>
     <link rel="stylesheet" href="admin_styles.css">
     <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+    .admin-container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    nav {
+        margin-bottom: 20px;
+    }
+    nav ul {
+        list-style: none;
+        padding: 0;
+    }
+    nav ul li {
+        display: inline;
+        margin-right: 10px;
+    }
+    nav ul li a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+    }
+    .participants-container {
+        padding: 20px;
+    }
+    .page-header {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333;
+    }
+    .broadcast-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 20px;
+        transition: background-color 0.3s ease;
+    }
+    .broadcast-button:hover {
+        background-color: #45a049;
+    }
+    .broadcast-form {
+        display: none; /* Initially hidden */
+        margin: 20px 0;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .broadcast-form input, .broadcast-form textarea {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .participants-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .participants-table th, .participants-table td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+        transition: background-color 0.3s ease;
+    }
+    .participants-table th {
+        background-color: #f2f2f2;
+        color: #555;
+        font-weight: bold;
+    }
+    .participants-table tr:hover {
+        background-color: #f5f5f5;
+    }
+    .participants-table td {
+        color: #333;
+    }
+    .participants-table button {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .participants-table button:hover {
+        background-color: #d32f2f;
+    }
+    .statistics {
+        margin-top: 20px;
+    }
+    .statistics h3 {
+        margin-bottom: 10px;
+        color: #333;
+    }
+    .filter-container {
+        margin-bottom: 20px;
+    }
+    .filter-container select {
+        padding: 10px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        transition: border-color 0.3s ease;
+    }
+    .filter-container select:hover {
+        border-color: #888;
+    }
+    /* Responsive design */
+    @media (max-width: 600px) {
+        nav ul li {
+            display: block;
+            margin: 5px 0;
+        }
         .broadcast-button {
-            display: inline-block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            text-align: center;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .broadcast-button:hover {
-            background-color: #218838;
-        }
-
-        .broadcast-form {
-            display: none;
-            margin: 20px auto;
-            padding: 20px;
-            max-width: 500px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .participants-container {
-            max-width: 1000px;
-            margin: 50px auto;
-        }
-
-        .participants-table {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+    }
 
-        .participants-table th, .participants-table td {
-            padding: 15px;
-            text-align: left;
-        }
+    .statistics {
+        background-color: #f9f9f9; /* Light background for contrast */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        padding: 20px; /* Inner spacing */
+        margin: 20px 0; /* Outer spacing */
+    }
 
-        .participants-table th {
-            background-color: #007bff;
-            color: #fff;
-            font-weight: 600;
-        }
+    .statistics h3 {
+        font-size: 24px; /* Main heading size */
+        color: #333; /* Darker color for contrast */
+        border-bottom: 2px solid #007BFF; /* Blue bottom border */
+        padding-bottom: 10px; /* Padding below the heading */
+        margin-bottom: 15px; /* Margin below the heading */
+    }
 
-        .participants-table tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
+    .statistics h4 {
+        font-size: 20px; /* Subheading size */
+        color: #555; /* Slightly lighter color */
+        margin: 15px 0 10px; /* Spacing above and below */
+    }
 
-        .participants-table tr:hover {
-            background-color: #e9f5ff;
-        }
+    .statistics ul {
+        list-style: none; /* Remove default list style */
+        padding: 0; /* Remove padding */
+    }
+
+    .statistics li {
+        background-color: #fff; /* White background for list items */
+        border: 1px solid #e0e0e0; /* Light gray border */
+        border-radius: 4px; /* Rounded corners */
+        padding: 10px; /* Padding within list items */
+        margin-bottom: 10px; /* Space between list items */
+        transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+    }
+
+    .statistics li:hover {
+        background-color: #f0f8ff; /* Light blue on hover */
+        transform: translateY(-2px); /* Lift effect on hover */
+    }
+
     </style>
+
     <script>
         function toggleBroadcastForm() {
             var form = document.getElementById('broadcastForm');
@@ -176,7 +251,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_user'])) {
     <div class="participants-container">
         <h2 class="page-header">Registered Participants</h2>
 
-        <!-- Broadcast button and form -->
         <div style="text-align: center; margin-bottom: 20px;">
             <button class="broadcast-button" onclick="toggleBroadcastForm()">Send Broadcast Message</button>
         </div>
@@ -187,43 +261,105 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_user'])) {
             <button type="submit" name="broadcast">Send Broadcast</button>
         </form>
 
-        <?php if (mysqli_num_rows($result) > 0): ?>
-            <table class="participants-table">
-                <thead>
+        <div class="filter-container">
+            <form method="GET" action="">
+                <select name="language" onchange="this.form.submit()">
+                    <option value="">Select Programming Language</option>
+                    <option value="Python" <?= (isset($_GET['language']) && $_GET['language'] === 'Python') ? 'selected' : ''; ?>>Python</option>
+                    <option value="Java" <?= (isset($_GET['language']) && $_GET['language'] === 'Java') ? 'selected' : ''; ?>>Java</option>
+                    <option value="JavaScript" <?= (isset($_GET['language']) && $_GET['language'] === 'JavaScript') ? 'selected' : ''; ?>>JavaScript</option>
+                    <option value="C++" <?= (isset($_GET['language']) && $_GET['language'] === 'C++') ? 'selected' : ''; ?>>C++</option>
+                </select>
+                <select name="ide" onchange="this.form.submit()">
+                    <option value="">Select IDE</option>
+                    <option value="VSCode" <?= (isset($_GET['ide']) && $_GET['ide'] === 'VSCode') ? 'selected' : ''; ?>>VSCode</option>
+                    <option value="PyCharm" <?= (isset($_GET['ide']) && $_GET['ide'] === 'PyCharm') ? 'selected' : ''; ?>>PyCharm</option>
+                    <option value="Eclipse" <?= (isset($_GET['ide']) && $_GET['ide'] === 'Eclipse') ? 'selected' : ''; ?>>Eclipse</option>
+                </select>
+                <select name="institution" onchange="this.form.submit()">
+                    <option value="">Select Institution Type</option>
+                    <option value="University" <?= (isset($_GET['institution']) && $_GET['institution'] === 'University') ? 'selected' : ''; ?>>University</option>
+                    <option value="College" <?= (isset($_GET['institution']) && $_GET['institution'] === 'College') ? 'selected' : ''; ?>>College</option>
+                    <option value="High School" <?= (isset($_GET['institution']) && $_GET['institution'] === 'High School') ? 'selected' : ''; ?>>High School</option>
+                </select>
+            </form>
+        </div>
+
+        <table class="participants-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th>Preferred Language</th>
+                    <th>Preferred IDE</th>
+                    <th>Type of Institution</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($row = mysqli_fetch_assoc($result)): ?>
                     <tr>
-                        <th>User ID</th>
-                        <th>Full Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Registration Date</th>
-                        <th>Action</th>
+                        <td><?= htmlspecialchars($row['name']); ?></td>
+                        <td><?= htmlspecialchars($row['surname']); ?></td>
+                        <td><?= htmlspecialchars($row['email']); ?></td>
+                        <td><?= htmlspecialchars($row['preferred_language']); ?></td>
+                        <td><?= htmlspecialchars($row['preferred_ide']); ?></td>
+                        <td><?= htmlspecialchars($row['type_of_institution']); ?></td>
+                        <td>
+                            <form method="POST" action="">
+                                <input type="hidden" name="user_email" value="<?= htmlspecialchars($row['email']); ?>">
+                                <button type="submit" name="delete_user">Delete</button>
+                            </form>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php while ($user = mysqli_fetch_assoc($result)): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($user['id']); ?></td>
-                            <td><?php echo htmlspecialchars($user['name']); ?></td>
-                            <td><?php echo htmlspecialchars($user['email']); ?></td>
-                            <td><?php echo htmlspecialchars($user['contact_number']); ?></td>
-                            <td><?php echo htmlspecialchars($user['registration_date']); ?></td>
-                            <td>
-                                <form method="POST" action="" style="display: inline;">
-                                    <input type="hidden" name="email" value="<?php echo htmlspecialchars($user['email']); ?>">
-                                    <button type="submit" name="delete_user" onclick="return confirm('Are you sure you want to delete this user?');">
-                                        Delete
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php endwhile; ?>
-                </tbody>
-            </table>
-        <?php else: ?>
-            <p>No registered participants found.</p>
-        <?php endif; ?>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+
+        <div class="statistics">
+            <h3>Statistics Overview</h3>
+
+            <h4>Programming Languages</h4>
+            <ul>
+                <?php
+                $languages_query = "SELECT preferred_language, COUNT(*) AS count FROM registered GROUP BY preferred_language";
+                $languages_result = mysqli_query($conn, $languages_query);
+
+                while ($language = mysqli_fetch_assoc($languages_result)): ?>
+                    <li><?= htmlspecialchars($language['preferred_language']); ?>: <?= $language['count']; ?></li>
+                <?php endwhile; ?>
+            </ul>
+
+            <h4>Preferred IDEs</h4>
+            <ul>
+                <?php
+                $ides_query = "SELECT preferred_ide, COUNT(*) AS count FROM registered GROUP BY preferred_ide";
+                $ides_result = mysqli_query($conn, $ides_query);
+
+                while ($ide = mysqli_fetch_assoc($ides_result)): ?>
+                    <li><?= htmlspecialchars($ide['preferred_ide']); ?>: <?= $ide['count']; ?></li>
+                <?php endwhile; ?>
+            </ul>
+
+            <h4>Type of Institution</h4>
+            <ul>
+                <?php
+                $institutions_query = "SELECT type_of_institution, COUNT(*) AS count FROM registered GROUP BY type_of_institution";
+                $institutions_result = mysqli_query($conn, $institutions_query);
+
+                while ($institution = mysqli_fetch_assoc($institutions_result)): ?>
+                    <li><?= htmlspecialchars($institution['type_of_institution']); ?>: <?= $institution['count']; ?></li>
+                <?php endwhile; ?>
+            </ul>
+        </div>
     </div>
 </div>
 
 </body>
 </html>
+
+<?php
+// Close database connection
+mysqli_close($conn);
+?>
