@@ -20,7 +20,11 @@ session_start();
         }
 
         function showBroadcasts() {
-            document.getElementById("broadcastModal").style.display = "block";
+            <?php if (isset($_SESSION["email"])): ?>
+                document.getElementById("broadcastModal").style.display = "block";
+            <?php else: ?>
+                alert("Please log in to view notifications.");
+            <?php endif; ?>
         }
 
         function hideBroadcasts() {
@@ -83,7 +87,9 @@ session_start();
                 </li>
                 <li>
                     <div class="buttons">
-                        <button class="btn btn-info" onclick="showBroadcasts()">Notifications</button>
+                        <?php if (isset($_SESSION["email"])): ?>
+                            <button class="btn btn-info" onclick="showBroadcasts()">Notifications</button>
+                        <?php endif; ?>
                     </div>
                 </li>
             </ul>
@@ -111,26 +117,24 @@ session_start();
         </div>
     </div>
 
-    <!-- Broadcast Modal -->
-    <div id="broadcastModal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <span class="close" onclick="hideBroadcasts()">&times;</span>
-            <h2>Broadcasts</h2>
-            <div class="broadcasts-container">
-                <?php
-                include "db_connection.php"; // Database connection
+<!-- Broadcast Modal -->
+<div id="broadcastModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close" onclick="hideBroadcasts()">&times;</span>
+        <h2>Broadcasts</h2>
+        <div class="broadcasts-container">
+            <?php
+            if (isset($_SESSION["email"])) {
+                include "db_connection.php";
 
-                // Check connection
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
                 }
 
-                // Fetch broadcasts from the database
                 $sql = "SELECT * FROM broadcasts ORDER BY created_at DESC";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
-                    // Output data for each broadcast
                     while ($row = $result->fetch_assoc()) {
                         echo '<div class="broadcast-item">';
                         echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
@@ -143,10 +147,13 @@ session_start();
                 }
 
                 $conn->close();
-                ?>
-            </div>
+            } else {
+                echo '<p>Please log in to view notifications.</p>';
+            }
+            ?>
         </div>
     </div>
+</div>
 
     <!-- Hero Section with Slider -->
     <section class="hero">
