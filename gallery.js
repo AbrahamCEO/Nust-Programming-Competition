@@ -1,36 +1,41 @@
-let currentImageIndex = null;
-const galleryItems = document.querySelectorAll(".gallery-item");
+const images = [
+    { src: "/IMAGES NUST/SPEAKING1.png", caption: "Opening Ceremony" },
+    { src: "/IMAGES NUST/GROUP2.png", caption: "Participants and Judges 2023" },
+    { src: "/IMAGES NUST/WINERS.png", caption: "Winners 2023" },
+    { src: "/IMAGES NUST/SPEAKING2.png", caption: "Sponsors Representative" },
+    { src: "/IMAGES NUST/WATCHIG 1.png", caption: "Viewers enjoying Project presentations" },
+    { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6BUoIoc1-z-TS6CmpHxqW09Py6h94LuQU_g&s", caption: "Winners 2022" },
+    { src: "https://www.nust.na/sites/default/files/styles/medium/public/news/2024-07/DSC07691.JPG?itok=M81JG4bg", caption: "Viewers enjoying Project presentations" }
+];
 
-function openLightbox(element) {
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightbox-img");
+let currentIndex = 0;
 
-    // Get the image element from the clicked item and set its src to the lightbox image
-    const img = element.querySelector("img");
-    lightboxImg.src = img.src; // Get the src of the image directly
-    currentImageIndex = Array.from(galleryItems).indexOf(element);
-
-    // Show the lightbox
-    lightbox.style.display = "flex";
+function openModal(index) {
+    currentIndex = index;
+    const modal = document.getElementById("imageModal");
+    const modalImage = document.getElementById("modalImage");
+    const caption = document.getElementById("caption");
+    
+    modalImage.src = images[currentIndex].src;
+    caption.innerText = images[currentIndex].caption;
+    modal.style.display = "flex";
 }
 
-function closeLightbox(event) {
-    // Close lightbox only if clicking outside of the image and buttons
-    if (event.target.id === "lightbox") {
-        document.getElementById("lightbox").style.display = "none";
+function closeModal() {
+    document.getElementById("imageModal").style.display = "none";
+}
+
+function changeImage(direction) {
+    currentIndex += direction;
+    if (currentIndex < 0) {
+        currentIndex = images.length - 1; // Loop to last image
+    } else if (currentIndex >= images.length) {
+        currentIndex = 0; // Loop to first image
     }
-}
-
-function nextImage(event) {
-    event.stopPropagation(); // Prevents the lightbox from closing
-    currentImageIndex = (currentImageIndex + 1) % galleryItems.length;
-    const nextImageSrc = galleryItems[currentImageIndex].querySelector("img").src; // Get src directly from the image
-    document.getElementById("lightbox-img").src = nextImageSrc;
-}
-
-function previousImage(event) {
-    event.stopPropagation(); // Prevents the lightbox from closing
-    currentImageIndex = (currentImageIndex - 1 + galleryItems.length) % galleryItems.length;
-    const prevImageSrc = galleryItems[currentImageIndex].querySelector("img").src; // Get src directly from the image
-    document.getElementById("lightbox-img").src = prevImageSrc;
+    
+    const modalImage = document.getElementById("modalImage");
+    const caption = document.getElementById("caption");
+    
+    modalImage.src = images[currentIndex].src;
+    caption.innerText = images[currentIndex].caption;
 }
