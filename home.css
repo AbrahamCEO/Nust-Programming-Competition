@@ -82,6 +82,13 @@ nav ul li a:hover {
     background-color: #6c757d;
     color: #fff;
 }
+.button{
+    margin-top: 20px; /* Adds space above the button */
+}
+
+.des {
+    margin-top: 20px; /* Adds space above the button */
+}
 
 .btn-secondary:hover {
     background-color: #5a6268;
@@ -276,7 +283,7 @@ footer {
 
 
 .modal {
-    
+
     position: fixed;
     top: 0;
     left: 0;
