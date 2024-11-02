@@ -496,7 +496,7 @@ document.getElementById('chatInput').addEventListener('keypress', function(e) {
 
 /* Suggestion Buttons */
 .suggestions {
-    display: none;
+    display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-top: 10px;
