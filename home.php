@@ -216,60 +216,6 @@ session_start();
     </div>
 </section>
 
-    <!-- Footer Section -->
-    <footer>
-        <p>&copy; <?php echo date("Y"); ?> NUST Programming Competition. All rights reserved.</p>
-    </footer>
-
-    <style>
-        /* Basic styles for modals */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1000; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; /* Could be more or less, depending on screen size */
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .broadcasts-container {
-            max-height: 400px; /* Set a max height for the broadcast container */
-            overflow-y: auto; /* Enable vertical scrolling */
-        }
-
-        .broadcast-item {
-            border-bottom: 1px solid #ddd; /* Light border between items */
-            padding: 10px 0; /* Padding around each item */
-        }
-    </style>
-
-<!-- Hovering Chatbot Button -->
 <div class="chatbot-button" onclick="toggleChat()">
     💬
 </div>
@@ -278,7 +224,7 @@ session_start();
 <div class="chatbot-wrapper" id="chatbotWrapper">
     <div class="chatbot-header">
         <span>NUST Competition Assistant</span>
-        <button onclick="toggleChat()" style="background: none; border: none; color: white;">×</button>
+        <button onclick="toggleChat()" class="close-btn">×</button>
     </div>
     <div class="chatbot-messages" id="chatMessages">
         <div class="message bot-message">Hello! How can I help you with the NUST Programming Competition?</div>
@@ -292,11 +238,7 @@ session_start();
 <script>
 function toggleChat() {
     const wrapper = document.getElementById('chatbotWrapper');
-    if (wrapper.style.transform === 'translateY(0)') {
-        wrapper.style.transform = 'translateY(100%)'; // Hide the chat
-    } else {
-        wrapper.style.transform = 'translateY(0)'; // Show the chat
-    }
+    wrapper.classList.toggle('visible'); // Toggle the 'visible' class
 }
 
 function sendMessage() {
@@ -341,6 +283,146 @@ document.getElementById('chatInput').addEventListener('keypress', function(e) {
     }
 });
 </script>
+
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; <?php echo date("Y"); ?> NUST Programming Competition. All rights reserved.</p>
+    </footer>
+    <style>
+/* Basic styles for modals */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.broadcasts-container {
+    max-height: 400px; /* Set a max height for the broadcast container */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.broadcast-item {
+    border-bottom: 1px solid #ddd; /* Light border between items */
+    padding: 10px 0; /* Padding around each item */
+}
+
+/* Chatbot Wrapper */
+.chatbot-wrapper {
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background-color: #f9f9f9;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(100%); /* Start hidden */
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatbot-wrapper.visible {
+    transform: translateY(0); /* Show when class is added */
+}
+
+/* Chatbot Button */
+.chatbot-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #0073e6;
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+}
+
+/* Chatbot Header */
+.chatbot-header {
+    background-color: #0073e6;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px 10px 0 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Chatbot Messages */
+.chatbot-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+/* Chat Input Area */
+.chat-input-area {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.chat-send-btn {
+    background-color: #0073e6;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+</style>
+
 
 </body>
 </html>
