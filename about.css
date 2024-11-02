@@ -1,0 +1,143 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 50px;
+    position: sticky; /* Makes the header sticky */
+    top: 0; /* Sticks the header at the top */
+    z-index: 1000; /* Ensures header stays above other content */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for separation */
+    background-color: white;
+    color: #1e3a6a;
+}
+
+.header-logo img {
+    height: 50px;
+}
+li .buttons button{
+border-radius:20px;
+    background-color: #1e3a6a;
+color: #eee;
+    letter-spacing: 3px;
+    font-family: Poppins, sans-serif;
+    font-weight: 50;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+}
+
+nav ul li a, .register-btn {
+    color: #1e3a6a;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+h1, h2, h3 {
+    color: #1e3a6a;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.section-intro, .section-categories, .section-winners, .section-sponsors, .section-involved {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-color: #1e3a6a;
+}
+
+.section-categories ul, .section-sponsors ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.section-sponsors .sponsors-list li {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+}
+
+.winners-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
+
+
+.winners-gallery img, .sponsors-list img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-color: #1e3a6a;
+}
+
+.winners-gallery img:hover, .sponsors-list img:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    background-color: #0072bb;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #005b8c;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #0072bb;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+nav ul li a.active {
+    text-decoration: underline;
+}
+.about-competition {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.text-content {
+    flex: 1;
+}
+
+.image-content img {
+    width: 300px; /* Adjust size as needed */
+    height: auto;
+    border-radius: 8px; /* Optional styling */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional styling */
+}

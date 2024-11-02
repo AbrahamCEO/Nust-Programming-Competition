@@ -1,33 +1,48 @@
-
-<header class="bg-white py-3">
-    <div class="container d-flex justify-content-between align-items-center">
-        <!-- Logo Placeholder -->
-        <div class="d-flex align-items-center">
-            <div class="logo-placeholder mr-3" style="width: 50px; height: 50px; background-color: gray; text-align: center; color: white; font-weight: bold;">
-                Logo
-            </div>
-            <h1 class="h4 mb-0 text-dark">NUST Competitions</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <link rel="stylesheet" href="css/header.css"> <!-- Adjust path if necessary -->
+</head>
+<body>
+    <header>
+        <div class="header-logo">
+            <img src="./IMAGES NUST/NUST.png" alt="University Logo">
         </div>
-
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link text-dark" href="home.php">Home</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="about.php">About</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="schedule.php">Schedule</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="speakers.php">Speakers</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="sponsors.php">Sponsors</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="faq.php">FAQ</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark" href="contact.php">Contact</a></li>
-                </ul>
-            </div>
+        <nav>
+            <ul>
+                <li><a class="active" href="home.php">Home</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="Gallery.html">Gallery</a></li>
+                <li><a href="Sponsors.html">Sponsors</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li>
+                    <div class="buttons">
+                        <?php if (isset($_SESSION["email"])): ?>
+                            <a href="#" class="btn btn-danger" onclick="showDeRegisterForm()">DE-REGISTER</a>
+                        <?php else: ?>
+                            <a href="register.php" class="btn btn-primary">REGISTER NOW</a>
+                        <?php endif; ?>
+                    </div>
+                </li>
+                <li>
+                    <div class="buttons">
+                        <?php if (isset($_SESSION["email"])): ?>
+                            <a href="logout.php" class="btn btn-secondary">LOGOUT</a> <!-- Logout button -->
+                        <?php else: ?>
+                            <a href="login.php" class="btn btn-secondary">LOGIN</a> <!-- Login button -->
+                        <?php endif; ?>
+                    </div>
+                </li>
+                <li>
+                    <div class="buttons">
+                        <button class="btn btn-info" onclick="showBroadcasts()">Notifications</button>
+                    </div>
+                </li>
+            </ul>
         </nav>
-
-        <!-- Register Online Button and User Info -->
-        <div class="header-info d-flex align-items-center">
-            <a href="register.php" class="btn btn-primary text-white mr-3 w-50" style="border-radius: 20px; padding: 3px 10px; font-size: 13px">Register Online</a>
-            <a href="logout.php" class="btn btn-danger ml-3">Logout</a>
-        </div>
-    </div>
-</header>
+    </header>
+</body>
+</html>

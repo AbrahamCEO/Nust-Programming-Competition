@@ -59,10 +59,10 @@ session_start();
         <nav>
             <ul>
                 <li><a class="active" href="home.php">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="Gallery.html">Gallery</a></li>
-                <li><a href="Sponsors.html">Sponsors</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="gallery.php">Gallery</a></li>
+                <li><a href="sponsors.php">Sponsors</a></li>
+                <li><a href="contact.php">Contact</a></li>
                 <li>
                     <div class="buttons">
                         <?php if (isset($_SESSION["email"])): ?>
