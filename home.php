@@ -204,16 +204,17 @@ session_start();
     </section>
     <hr>
 
-    <!-- Meet Our Sponsors Section -->
     <section class="meet-our-sponsors">
-        <h2>Meet Our Sponsors</h2>
-        <div class="sponsor-logos">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2nwxwGTGH9fzfRxyVGF7Q_lYvn5_YqRGc2g&usqp=CAU" alt="Sponsor 1">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzdmDROGqDIFod9T0R82DzU9i3ZW5pl0PQo18h8UePHU0t-mgblx_rwe5-2OGh6V8Lzo5I&usqp=CAU" alt="Sponsor 2">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy78RLsGfg_OzY00G0CCqMxN4JWfdlsBbYFQ&usqp=CAU" alt="Sponsor 3">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeUEFFKcWmOB5BIXkdOwE5I3MNyzwof5rbnA&usqp=CAU" alt="Sponsor 4">
-        </div>
-    </section>
+    <h2>Meet Our Sponsors</h2>
+    <div class="sponsors-container">
+        <a href="https://www.mtc.com.na" target="_blank" class="sponsor-logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Mtc_Namibia_Logo.svg/1200px-Mtc_Namibia_Logo.svg.png" alt="Sponsor 1 Logo">
+        </a>
+        <a href="https://www.blueskyask.com" target="_blank" class="sponsor-logo">
+            <img src="data:image/png;base64,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...">
+        </a>
+    </div>
+</section>
 
     <!-- Footer Section -->
     <footer>
@@ -267,6 +268,79 @@ session_start();
             padding: 10px 0; /* Padding around each item */
         }
     </style>
+
+<!-- Hovering Chatbot Button -->
+<div class="chatbot-button" onclick="toggleChat()">
+    💬
+</div>
+
+<!-- Chatbot Interface -->
+<div class="chatbot-wrapper" id="chatbotWrapper">
+    <div class="chatbot-header">
+        <span>NUST Competition Assistant</span>
+        <button onclick="toggleChat()" style="background: none; border: none; color: white;">×</button>
+    </div>
+    <div class="chatbot-messages" id="chatMessages">
+        <div class="message bot-message">Hello! How can I help you with the NUST Programming Competition?</div>
+    </div>
+    <div class="chat-input-area">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
+        <button class="chat-send-btn" onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+function toggleChat() {
+    const wrapper = document.getElementById('chatbotWrapper');
+    if (wrapper.style.transform === 'translateY(0)') {
+        wrapper.style.transform = 'translateY(100%)'; // Hide the chat
+    } else {
+        wrapper.style.transform = 'translateY(0)'; // Show the chat
+    }
+}
+
+function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const message = input.value.trim();
+    
+    if (message === '') return;
+    
+    // Add user message
+    const messagesDiv = document.getElementById('chatMessages');
+    messagesDiv.innerHTML += `<div class="message user-message">${message}</div>`;
+    
+    // Clear input
+    input.value = '';
+    
+    // Send to server
+    fetch('message.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `text=${encodeURIComponent(message)}`
+    })
+    .then(response => response.text())
+    .then(reply => {
+        messagesDiv.innerHTML += `<div class="message bot-message">${reply}</div>`;
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        messagesDiv.innerHTML += `<div class="message bot-message">Sorry, there was an error processing your request.</div>`;
+    });
+    
+    // Scroll to bottom
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+// Allow Enter key to send message
+document.getElementById('chatInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
+</script>
 
 </body>
 </html>

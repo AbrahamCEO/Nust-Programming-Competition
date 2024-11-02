@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Commit transaction
             mysqli_commit($conn);
             echo "Registration successful!";
-            header("location:userhome.php");
+            header("location:home.php");
             exit();
         } catch (Exception $e) {
             // Rollback transaction in case of error

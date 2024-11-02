@@ -24,10 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['broadcast'])) {
     $message = $_POST['message'];
 
     if (!empty($title) && !empty($message)) {
-        // Insert broadcast into database
+        // Insert broadcast into the broadcasts table
         $insert_query = "INSERT INTO broadcasts (title, message) VALUES ('$title', '$message')";
         if (mysqli_query($conn, $insert_query)) {
-            // Insert announcement into the announcements table
+            // Insert into announcements table
             $announcement_query = "INSERT INTO announcements (title, message) VALUES ('$title', '$message')";
             mysqli_query($conn, $announcement_query); // Ignore error handling for simplicity
 
@@ -59,6 +59,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['broadcast'])) {
         echo "<script>alert('Title and message cannot be empty.');</script>";
     }
 }
+
+// Handle user deletion
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_user'])) {
+    $email = trim(strtolower($_POST['email']));
+
+    // Delete user from registered table based on email
+    $delete_registered_query = "DELETE FROM registered WHERE LOWER(TRIM(email)) = '$email'";
+    $delete_login_query = "DELETE FROM login WHERE LOWER(TRIM(email)) = '$email'";
+
+    // Perform deletion with error handling
+    if (mysqli_query($conn, $delete_registered_query)) {
+        if (mysqli_query($conn, $delete_login_query)) {
+            // Redirect to the same page with a success message
+            header("Location: participants.php?delete_success=1");
+            exit;
+        } else {
+            echo "<script>alert('Error deleting user from login table: " . mysqli_error($conn) . "');</script>";
+        }
+    } else {
+        echo "<script>alert('Error deleting user from registered table: " . mysqli_error($conn) . "');</script>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +91,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['broadcast'])) {
     <title>Registered Participants - NUST Competitions</title>
     <link rel="stylesheet" href="admin_styles.css">
     <style>
-        /* Style for broadcast button and form */
         .broadcast-button {
             display: inline-block;
             margin: 20px auto;
@@ -98,35 +119,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['broadcast'])) {
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .broadcast-form input, .broadcast-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-
-        .broadcast-form button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .broadcast-form button:hover {
-            background-color: #0056b3;
-        }
-
-        /* Style for participants table */
         .participants-container {
             max-width: 1000px;
             margin: 50px auto;
-            padding: 2px;
         }
 
         .participants-table {
@@ -157,15 +152,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['broadcast'])) {
         .participants-table tr:hover {
             background-color: #e9f5ff;
         }
-
-        .page-header {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
     </style>
     <script>
-        // Function to toggle the broadcast form visibility
         function toggleBroadcastForm() {
             var form = document.getElementById('broadcastForm');
             form.style.display = form.style.display === 'block' ? 'none' : 'block';
@@ -208,6 +196,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['broadcast'])) {
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Registration Date</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -218,6 +207,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['broadcast'])) {
                             <td><?php echo htmlspecialchars($user['email']); ?></td>
                             <td><?php echo htmlspecialchars($user['contact_number']); ?></td>
                             <td><?php echo htmlspecialchars($user['registration_date']); ?></td>
+                            <td>
+                                <form method="POST" action="" style="display: inline;">
+                                    <input type="hidden" name="email" value="<?php echo htmlspecialchars($user['email']); ?>">
+                                    <button type="submit" name="delete_user" onclick="return confirm('Are you sure you want to delete this user?');">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
