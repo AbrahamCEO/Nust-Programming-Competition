@@ -254,7 +254,6 @@ session_start();
 <div class="chatbot-button" onclick="toggleChat()">
     💬
 </div>
-
 <!-- Chatbot Interface -->
 <div class="chatbot-wrapper" id="chatbotWrapper">
     <div class="chatbot-header">
@@ -319,12 +318,7 @@ document.getElementById('chatInput').addEventListener('keypress', function(e) {
 });
 </script>
 
-
-    <!-- Footer Section -->
-    <footer>
-        <p>&copy; <?php echo date("Y"); ?> NUST Programming Competition. All rights reserved.</p>
-    </footer>
-    <style>
+<style>
 /* Basic styles for modals */
 .modal {
     display: none; /* Hidden by default */
@@ -361,6 +355,7 @@ document.getElementById('chatInput').addEventListener('keypress', function(e) {
     cursor: pointer;
 }
 
+/* Broadcast Container Styles */
 .broadcasts-container {
     max-height: 400px; /* Set a max height for the broadcast container */
     overflow-y: auto; /* Enable vertical scrolling */
@@ -431,6 +426,33 @@ document.getElementById('chatInput').addEventListener('keypress', function(e) {
     flex: 1;
     padding: 10px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Chat Messages */
+.message {
+    max-width: 80%;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* User and Bot Message Styles */
+.user-message {
+    align-self: flex-end;
+    background-color: #0073e6;
+    color: white;
+    border-radius: 10px 10px 0 10px;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: #e5e5e5;
+    color: #333;
+    border-radius: 10px 10px 10px 0;
 }
 
 /* Chat Input Area */
@@ -457,6 +479,7 @@ document.getElementById('chatInput').addEventListener('keypress', function(e) {
     cursor: pointer;
 }
 </style>
+
 
 
 </body>
