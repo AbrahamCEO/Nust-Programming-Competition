@@ -36,7 +36,9 @@ nav ul {
     list-style: none;
     gap: 20px;
 }
-
+.button {
+    margin-top: 20px; /* Adds space above the button */
+}
 nav ul li a {
     color: #1e3a6a;
     text-decoration: none;
@@ -99,6 +101,9 @@ nav ul li a.active {
     padding: 20px;
     max-width: 400px;
     margin: 20px auto;
+}
+.des {
+    margin-bottom: 20px; /* Adds space below the description */
 }
 
 #deRegisterForm h3 {

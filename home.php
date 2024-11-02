@@ -156,7 +156,7 @@ session_start();
                     <div class="content">
                         <h2 class="title">NUST 2024 Programming Competition</h2>
                         <p class="des">Welcome to the NUST Annual Programming Competition! Join us as we celebrate innovation, creativity, and the power of technology. Let’s code the future together.</p>
-                        <div class="buttons">
+                        <div class="button">
                             <a href="register.php?competition_id=1" class="btn btn-primary">REGISTER NOW</a>
                         </div>
                     </div>
