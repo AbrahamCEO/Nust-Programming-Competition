@@ -101,12 +101,12 @@
 
     <div class="people">
       <div>
-        <img src="./assets/media/people/female.png">
+        <img src="./assets/assets/media/people/female.png">
         <p><span>Ms Nashandi Ndinelago</span>Lecturer<br> +264 81 867 8032   <br>Email:
             nnashandi@nust.na </p>
       </div>
       <div>
-      <img src="./assets/media/people/female.png">
+      <img src="./assets/assets/media/people/female.png">
       <p><span>Dr Ambrose Azeta </span>Lecturer<br>+264 81 3643798  <br>Email:
         aazeta@nust.na   </p>
         </div>
