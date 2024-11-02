@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,45 +9,7 @@ session_start();
     <link rel="stylesheet" href="contact.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZv51qY8w5ozW+qPQIK7I9C2hW/Lncn7PAujGd1wMfRTe9Sc0VtXjWzj5CkS4Y+" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-DyZv51qY8w5ozW+qPQIK7I9C2hW/Lncn7PAujGd1wMfRTe9Sc0VtXjWzj5CkS4Y+" crossorigin="anonymous">
-    <script>
-        function showDeRegisterForm() {
-            document.getElementById("deRegisterForm").style.display = "block";
-        }
 
-        function hideDeRegisterForm() {
-            document.getElementById("deRegisterForm").style.display = "none";
-        }
-
-        function showBroadcasts() {
-            document.getElementById("broadcastModal").style.display = "block";
-        }
-
-        function hideBroadcasts() {
-            document.getElementById("broadcastModal").style.display = "none";
-        }
-
-        async function deRegister() {
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            const response = await fetch('deregister.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
-            });
-
-            const data = await response.json();
-
-            if (data.status === 'success') {
-                alert('Your account has been deleted successfully.');
-                window.location.href = 'home.php'; // Redirect to home after successful deregistration
-            } else {
-                alert('Error: ' + data.message);
-            }
-        }
-    </script>
 </head>
 <style>
       li i {
@@ -67,9 +26,17 @@ session_start();
         </div>
         <nav>
             <ul>
+<<<<<<< HEAD
+                <li><a  href="home.php">Home</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="schedule.php">Schedule</a></li>
+                <li><a href="judges.php">Judges</a></li>
+                <li><a class="active" href="contact.php">Contact</a></li>
+=======
                 <li><a href="home.php">Home</a></li>
                 <li><a href="about.php">About</a></li>
                 <li><a  href="gallery.php">Gallery</a></li>
+                <li><a href="sponsors.php">Sponsors</a></li>
                 <li><a class="active" href="contact.php">Contact</a></li>
                 <li>
                     <div class="buttons">
@@ -89,6 +56,12 @@ session_start();
                         <?php endif; ?>
                     </div>
                 </li>
+                <li>
+                    <div class="buttons">
+                        <button class="btn btn-info" onclick="showBroadcasts()">Notifications</button>
+                    </div>
+                </li>
+>>>>>>> 2edf3a4fddbffe9d0dfd7c41715d1711699d72f4
             </ul>
         </nav>
     </header>
@@ -141,7 +114,7 @@ session_start();
             nnashandi@nust.na </p>
       </div>
       <div>
-      <img src="./assets/assets/media/people/male.png">
+      <img src="./assets/assets/media/people/female.png">
       <p><span>Dr Ambrose Azeta </span>Lecturer<br>+264 81 3643798  <br>Email:
         aazeta@nust.na   </p>
         </div>
@@ -157,55 +130,4 @@ session_start();
       <input type="text" placeholder="Your email address">
       <button class="normal">Register</button>
     </div>
-    <style>
-/* Basic styles for modals */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Broadcast Container Styles */
-.broadcasts-container {
-    max-height: 400px; /* Set a max height for the broadcast container */
-    overflow-y: auto; /* Enable vertical scrolling */
-}
-
-.broadcast-item {
-    border-bottom: 1px solid #ddd; /* Light border between items */
-    padding: 10px 0; /* Padding around each item */
-}
-</style>
-
   </section>
-</body>
-    </html>
