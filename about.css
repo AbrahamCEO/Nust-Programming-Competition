@@ -9,45 +9,135 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 50px;
-    position: sticky; /* Makes the header sticky */
-    top: 0; /* Sticks the header at the top */
-    z-index: 1000; /* Ensures header stays above other content */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for separation */
-    background-color: white;
-    color: #1e3a6a;
+    padding: 15px 50px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .header-logo img {
-    height: 50px;
-}
-li .buttons button{
-border-radius:20px;
-    background-color: #1e3a6a;
-color: #eee;
-    letter-spacing: 3px;
-    font-family: Poppins, sans-serif;
-    font-weight: 50;
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: background-color 0.3s ease; 
+    height: 60px;
 }
 
 nav ul {
     display: flex;
     list-style: none;
-    gap: 15px;
+    gap: 20px;
 }
 
-nav ul li a, .register-btn {
+nav ul li a {
     color: #1e3a6a;
     text-decoration: none;
-    padding: 5px 10px;
+    padding: 8px 16px;
+    transition: background-color 0.3s;
 }
 
-h1, h2, h3 {
+nav ul li a:hover {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+/* Button Styles */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
+}
+
+/* De-Register Form Styling */
+#deRegisterForm {
+    display: none;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+#deRegisterForm h3 {
+    margin-bottom: 15px;
     color: #1e3a6a;
-    text-align: center;
+}
+
+#deRegisterForm label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+#deRegisterForm input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+#deRegisterForm input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+#deRegisterForm button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#deRegisterForm button[type="submit"] {
+    background-color: #dc3545;
+    color: white;
+}
+
+#deRegisterForm button[type="submit"]:hover {
+    background-color: #c82333;
+}
+
+#deRegisterForm button[type="button"] {
+    background-color: #6c757d;
+    color: white;
+}
+
+#deRegisterForm button[type="button"]:hover {
+    background-color: #5a6268;
 }
 
 main {

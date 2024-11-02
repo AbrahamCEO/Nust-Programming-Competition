@@ -53,7 +53,7 @@ nav ul li a:hover {
 .btn {
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 60px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
 }
@@ -87,7 +87,9 @@ nav ul li a:hover {
     background-color: #5a6268;
     transform: scale(1.05);
 }
-
+nav ul li a.active {
+    text-decoration: underline;
+}
 /* De-Register Form Styling */
 #deRegisterForm {
     display: none;
@@ -295,3 +297,82 @@ footer {
 .broadcast-item {
     margin-bottom: 10px;
 }
+.thumbnail {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.thumbnail .item {
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.thumbnail .item:hover {
+    opacity: 1;
+}
+.important-dates {
+    text-align: center;
+    padding: 20px;
+    background-color: #ffffff; /* Light blue background for contrast */
+}
+
+
+.dates-container {
+    display: flex;
+    justify-content: center; /* Center the boxes */
+    flex-wrap: wrap; /* Allow wrapping of boxes */
+    gap: 20px; /* Space between boxes */
+}
+
+.date-box {
+    background-color: #ffffff; /* White background for each box */
+    border: 1px solid #1e3a6a; /* Blue border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.1); /* Subtle blue shadow for depth */
+    width: 200px; /* Fixed width for boxes */
+    padding: 15px; /* Padding inside boxes */
+    text-align: left; /* Align text to the left */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+.date-box:hover {
+    transform: translateY(-10px) scale(1.05); /* Lift and scale on hover */
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2); /* Darker blue shadow on hover */
+}
+
+.date-box strong {
+    color: #1e3a6a; /* Blue color for the strong text */
+}
+.date-box p{
+    font-weight: bold;
+}
+.meet-our-sponsors {
+    text-align: left;
+    padding: 20px;
+    background-color:  white; /* Light blue background */
+}
+
+.meet-our-sponsors h2 {
+    margin-bottom: 20px; /* Space below the heading */
+    color: #1e3a6a; /* Blue color for the heading */
+}
+
+.sponsors-container {
+    display: flex;
+    justify-content: center; /* Center the logos */
+    flex-wrap: wrap; /* Allow wrapping of logos */
+    gap: 20px; /* Space between logos */
+}
+
+
+.sponsor-logo img {
+    max-width: 150px; /* Limit the logo width */
+    height: auto; /* Maintain aspect ratio */
+    transition: transform 0.3s ease; /* Smooth scale transition */
+}
+
+.sponsor-logo:hover img {
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+ 

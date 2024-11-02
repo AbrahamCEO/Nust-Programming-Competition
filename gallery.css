@@ -6,61 +6,82 @@ body, h1, p {
     font-family: Arial, sans-serif;
 }
 
+/* Header Styling */
 header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 50px;
-    position: sticky; /* Makes the header sticky */
-    top: 0; /* Sticks the header at the top */
-    z-index: 1000; /* Ensures header stays above other content */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for separation */
-    background-color: white;
-    color: #1e3a6a;
+    padding: 15px 50px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .header-logo img {
-    height: 50px;
+    height: 60px;
 }
 
 nav ul {
     display: flex;
     list-style: none;
-    gap: 15px;
+    gap: 20px;
 }
 
-nav ul li a, .register-btn {
+nav ul li a {
     color: #1e3a6a;
     text-decoration: none;
-    padding: 5px 10px;
+    padding: 8px 16px;
+    transition: background-color 0.3s;
 }
 
-h1 {
-    font-size: 2em;
-    color: #1e3a6a;
+nav ul li a:hover {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+/* Button Styles */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
+}
+nav ul li a.active {
     text-decoration: underline;
 }
-
-p {
-    color: #1e3a6a;
-    font-size: 25px;
-font-style: italic;
-}
-li .buttons button{
-    border-radius:20px;
-        background-color: #1e3a6a;
-    color: #eee;
-        letter-spacing: 3px;
-        font-family: Poppins, sans-serif;
-        font-weight: 50;
-        padding: 2px 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease; 
-    }
-    li .buttons button:hover{
-        background-color: white!important;
-    }
-
 /* Gallery layout */
 .gallery {
     display: grid;

@@ -1,13 +1,93 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - NUST Annual Competition</title>
+    <link rel="icon" type="image/x-icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEOzlbxEmqvdYu9Oew3JCYCAXrVAcqHOb2LtAKcBiHfByWnUsHlyrFAI6BC4sLUXCcGzY&usqp=CAU">
     <link rel="stylesheet" href="about.css"> <!-- Link to your CSS file -->
+    <script>
+        function showDeRegisterForm() {
+            document.getElementById("deRegisterForm").style.display = "block";
+        }
+
+        function hideDeRegisterForm() {
+            document.getElementById("deRegisterForm").style.display = "none";
+        }
+
+        function showBroadcasts() {
+            document.getElementById("broadcastModal").style.display = "block";
+        }
+
+        function hideBroadcasts() {
+            document.getElementById("broadcastModal").style.display = "none";
+        }
+
+        async function deRegister() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            const response = await fetch('deregister.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                alert('Your account has been deleted successfully.');
+                window.location.href = 'home.php'; // Redirect to home after successful deregistration
+            } else {
+                alert('Error: ' + data.message);
+            }
+        }
+    </script>
 </head>
 <body>
-<?php include 'header.php'; ?>
+<header>
+        <div class="header-logo">
+            <img src="./IMAGES NUST/NUST.png" alt="University Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a  href="home.php">Home</a></li>
+                <li><a class="active"href="about.php">About</a></li>
+                <li><a href="gallery.php">Gallery</a></li>
+                <li><a href="sponsors.php">Sponsors</a></li>
+                <li><a href="contact.php">Contact</a></li>
+                <li>
+                    <div class="buttons">
+                        <?php if (isset($_SESSION["email"])): ?>
+                            <a href="#" class="btn btn-danger" onclick="showDeRegisterForm()">DE-REGISTER</a>
+                        <?php else: ?>
+                            <a href="register.php" class="btn btn-primary">REGISTER NOW</a>
+                        <?php endif; ?>
+                    </div>
+                </li>
+                <li>
+                    <div class="buttons">
+                        <?php if (isset($_SESSION["email"])): ?>
+                            <a href="logout.php" class="btn btn-secondary">LOGOUT</a> <!-- Logout button -->
+                        <?php else: ?>
+                            <a href="login.php" class="btn btn-secondary">LOGIN</a> <!-- Login button -->
+                        <?php endif; ?>
+                    </div>
+                </li>
+                <li>
+                    <div class="buttons">
+                        <button class="btn btn-info" onclick="showBroadcasts()">Notifications</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
 <main>
         <!-- NUST Annual Competition Section -->
         <section class="about-competition">
@@ -16,7 +96,7 @@
                 <p>The NUST Annual Competition is a prestigious event that showcases the innovative talents of young minds in Namibia. Our mission is to inspire creativity, foster innovation, and provide a platform for students to bring their ideas to life. Participants are challenged to develop projects that address real-world problems, and they have the opportunity to present their work to a panel of esteemed judges.</p>
             </div>
             <div class="image-content">
-                <img src="/IMAGES NUST/GROUP2.png" alt="NUST Annual Competition">
+                <img src="./IMAGES NUST/GROUP2.png" alt="NUST Annual Competition">
             </div>
         </section>
    <hr>
@@ -34,7 +114,7 @@
         <section class="section-winners">
             <h3>Previous Winners</h3>
             <div class="winners-gallery">
-                <img src="/IMAGES NUST/WINERS.png" alt="Previous Winner 1" />
+                <img src="./IMAGES NUST/WINERS.png" alt="Previous Winner 1" />
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6BUoIoc1-z-TS6CmpHxqW09Py6h94LuQU_g&s" alt="Previous Winner 2" />
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_S-LkKEOKD2NqCG-nV0c5fWc6ZKlqOwoq-Q&s" alt="Previous Winner 3" />
                 <!-- Add more images as needed -->
@@ -61,9 +141,95 @@
             <a href="/register.php" class="cta-button">Get Involved</a>
         </section>
     </main>
+     <!-- Broadcast Modal -->
+     <div id="broadcastModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="hideBroadcasts()">&times;</span>
+            <h2>Broadcasts</h2>
+            <div class="broadcasts-container">
+                <?php
+                include "db_connection.php"; // Database connection
+
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+
+                // Fetch broadcasts from the database
+                $sql = "SELECT * FROM broadcasts ORDER BY created_at DESC";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    // Output data for each broadcast
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="broadcast-item">';
+                        echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
+                        echo '<p>' . htmlspecialchars($row['message']) . '</p>';
+                        echo '<span>' . htmlspecialchars($row['created_at']) . '</span>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<p>No broadcasts available.</p>';
+                }
+
+                $conn->close();
+                ?>
+            </div>
+        </div>
+    </div>
+
 
     <footer>
         <p>&copy; 2024 NUST Annual Competition. All rights reserved.</p>
     </footer>
+
+    <style>
+/* Basic styles for modals */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Broadcast Container Styles */
+.broadcasts-container {
+    max-height: 400px; /* Set a max height for the broadcast container */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.broadcast-item {
+    border-bottom: 1px solid #ddd; /* Light border between items */
+    padding: 10px 0; /* Padding around each item */
+}
+</style>
 </body>
 </html>
