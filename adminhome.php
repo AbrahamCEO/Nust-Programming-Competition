@@ -160,6 +160,9 @@ if (!$result) {
         </div>
     </main>
 </div>
+<div class="admin-buttons">
+    <a href="editcontent.php" class="btn btn-warning">Edit Website Contents</a>
+</div>
 
 <script>
 // Toggle Competition Form Visibility

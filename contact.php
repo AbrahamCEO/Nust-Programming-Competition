@@ -26,11 +26,11 @@
         </div>
         <nav>
             <ul>
-                <li><a  href="home.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="schedule.html">Schedule</a></li>
-                <li><a href="judges.html">Judges</a></li>
-                <li><a class="active" href="contact.html">Contact</a></li>
+                <li><a  href="home.php">Home</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="schedule.php">Schedule</a></li>
+                <li><a href="judges.php">Judges</a></li>
+                <li><a class="active" href="contact.php">Contact</a></li>
             </ul>
         </nav>
     </header>

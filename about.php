@@ -58,7 +58,7 @@
         <section class="section-involved">
             <h3>Get Involved</h3>
             <p>Whether you're a student looking to participate, a sponsor wanting to support innovation, or a mentor willing to guide young minds, there are many ways to get involved with the NUST Annual Competition. Join us in celebrating creativity and innovation!</p>
-            <a href="/signup.php" class="cta-button">Get Involved</a>
+            <a href="/register.php" class="cta-button">Get Involved</a>
         </section>
     </main>
 
