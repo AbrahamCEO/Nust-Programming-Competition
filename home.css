@@ -53,7 +53,7 @@ nav ul li a:hover {
 .btn {
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 60px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
 }
@@ -87,7 +87,9 @@ nav ul li a:hover {
     background-color: #5a6268;
     transform: scale(1.05);
 }
-
+nav ul li a.active {
+    text-decoration: underline;
+}
 /* De-Register Form Styling */
 #deRegisterForm {
     display: none;

@@ -43,7 +43,7 @@ nav ul li a:hover {
 .btn {
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 60px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
 }

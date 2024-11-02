@@ -56,8 +56,8 @@ session_start();
         </div>
         <nav>
             <ul>
-                <li><a class="active" href="home.php">Home</a></li>
-                <li><a href="about.php">About</a></li>
+                <li><a  href="home.php">Home</a></li>
+                <li><a class="active"href="about.php">About</a></li>
                 <li><a href="gallery.php">Gallery</a></li>
                 <li><a href="sponsors.php">Sponsors</a></li>
                 <li><a href="contact.php">Contact</a></li>
@@ -96,7 +96,7 @@ session_start();
                 <p>The NUST Annual Competition is a prestigious event that showcases the innovative talents of young minds in Namibia. Our mission is to inspire creativity, foster innovation, and provide a platform for students to bring their ideas to life. Participants are challenged to develop projects that address real-world problems, and they have the opportunity to present their work to a panel of esteemed judges.</p>
             </div>
             <div class="image-content">
-                <img src="/IMAGES NUST/GROUP2.png" alt="NUST Annual Competition">
+                <img src="./IMAGES NUST/GROUP2.png" alt="NUST Annual Competition">
             </div>
         </section>
    <hr>
@@ -114,7 +114,7 @@ session_start();
         <section class="section-winners">
             <h3>Previous Winners</h3>
             <div class="winners-gallery">
-                <img src="/IMAGES NUST/WINERS.png" alt="Previous Winner 1" />
+                <img src="./IMAGES NUST/WINERS.png" alt="Previous Winner 1" />
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6BUoIoc1-z-TS6CmpHxqW09Py6h94LuQU_g&s" alt="Previous Winner 2" />
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_S-LkKEOKD2NqCG-nV0c5fWc6ZKlqOwoq-Q&s" alt="Previous Winner 3" />
                 <!-- Add more images as needed -->

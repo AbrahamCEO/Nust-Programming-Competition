@@ -11,7 +11,7 @@
 <body style="color: #1e3a6a; background: white">
 
     <header>
-        <div class="header-logo">
+    <div class="header-logo">
             <img src="./IMAGES NUST/NUST.png" alt="University Logo">
         </div>
         <nav>
@@ -19,12 +19,29 @@
                 <li><a href="home.php">Home</a></li>
                 <li><a href="about.php">About</a></li>
                 <li><a class="active" href="gallery.php">Gallery</a></li>
+                <li><a href="sponsors.php">Sponsors</a></li>
                 <li><a href="contact.php">Contact</a></li>
                 <li>
                     <div class="buttons">
-                        <a href="register.php" target="_blank">
-                            <button>REGISTER NOW</button>
-                        </a>
+                        <?php if (isset($_SESSION["email"])): ?>
+                            <a href="#" class="btn btn-danger" onclick="showDeRegisterForm()">DE-REGISTER</a>
+                        <?php else: ?>
+                            <a href="register.php" class="btn btn-primary">REGISTER NOW</a>
+                        <?php endif; ?>
+                    </div>
+                </li>
+                <li>
+                    <div class="buttons">
+                        <?php if (isset($_SESSION["email"])): ?>
+                            <a href="logout.php" class="btn btn-secondary">LOGOUT</a> <!-- Logout button -->
+                        <?php else: ?>
+                            <a href="login.php" class="btn btn-secondary">LOGIN</a> <!-- Login button -->
+                        <?php endif; ?>
+                    </div>
+                </li>
+                <li>
+                    <div class="buttons">
+                        <button class="btn btn-info" onclick="showBroadcasts()">Notifications</button>
                     </div>
                 </li>
             </ul>
@@ -86,11 +103,11 @@
     <script src="https://cdn.jsdelivr.net/npm/story-show-gallery@3/dist/ssg.min.js"></script>
     <script>
         const images = [
-            { src: "/IMAGES NUST/SPEAKING1.png", caption: "Opening Ceremony" },
-            { src: "/IMAGES NUST/GROUP2.png", caption: "Participants and Judges 2023" },
-            { src: "/IMAGES NUST/WINERS.png", caption: "Winners 2023" },
-            { src: "/IMAGES NUST/SPEAKING2.png", caption: "Sponsors Representative" },
-            { src: "/IMAGES NUST/WATCHIG 1.png", caption: "Viewers enjoying Project presentations" },
+            { src: "./IMAGES NUST/SPEAKING1.png", caption: "Opening Ceremony" },
+            { src: "./IMAGES NUST/GROUP2.png", caption: "Participants and Judges 2023" },
+            { src: "./IMAGES NUST/WINERS.png", caption: "Winners 2023" },
+            { src: "./IMAGES NUST/SPEAKING2.png", caption: "Sponsors Representative" },
+            { src: "./IMAGES NUST/WATCHIG 1.png", caption: "Viewers enjoying Project presentations" },
             { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6BUoIoc1-z-TS6CmpHxqW09Py6h94LuQU_g&s", caption: "Winners 2022" },
             { src: "https://www.nust.na/sites/default/files/styles/medium/public/news/2024-07/DSC07691.JPG?itok=M81JG4bg", caption: "Viewers enjoying Project presentations" }
         ];
@@ -106,6 +123,7 @@
             modalImage.src = images[currentIndex].src;
             caption.innerText = images[currentIndex].caption;
             modal.style.display = "flex";
+            console.log(images[currentIndex].src); 
         }
 
         function closeModal() {
