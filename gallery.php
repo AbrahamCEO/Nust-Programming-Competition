@@ -43,23 +43,23 @@
             <!-- Gallery Grid Section -->
             <div class="gridOverflow go-masonry go-3Dfx" id="grid">
                 <a href="javascript:void(0);" class="go_gridItem" onclick="openModal(0)">
-                    <img src="/IMAGES NUST/SPEAKING1.png" alt="Opening Ceremony" />
+                    <img src="./IMAGES NUST/SPEAKING1.png" alt="Opening Ceremony" />
                     <span class="go_caption">Opening Ceremony</span>
                 </a>
                 <a href="javascript:void(0);" class="go_gridItem" onclick="openModal(1)">
-                    <img src="/IMAGES NUST/GROUP2.png" alt="Participants and Judges 2023" />
+                    <img src="./IMAGES NUST/GROUP2.png" alt="Participants and Judges 2023" />
                     <span class="go_caption">Participants and Judges 2023</span>
                 </a>
                 <a href="javascript:void(0);" class="go_gridItem" onclick="openModal(2)">
-                    <img src="/IMAGES NUST/WINERS.png" alt="Winners 2023" />
+                    <img src="./IMAGES NUST/WINERS.png" alt="Winners 2023" />
                     <span class="go_caption">Winners 2023</span>
                 </a>
                 <a href="javascript:void(0);" class="go_gridItem" onclick="openModal(3)">
-                    <img src="/IMAGES NUST/SPEAKING2.png" alt="Sponsors Representative" />
+                    <img src="./IMAGES NUST/SPEAKING2.png" alt="Sponsors Representative" />
                     <span class="go_caption">Sponsors Representative</span>
                 </a>
                 <a href="javascript:void(0);" class="go_gridItem" onclick="openModal(4)">
-                    <img src="/IMAGES NUST/WATCHIG 1.png" alt="Viewers enjoying Project presentations" />
+                    <img src="./IMAGES NUST/WATCHIG 1.png" alt="Viewers enjoying Project presentations" />
                     <span class="go_caption">Viewers enjoying Project presentations</span>
                 </a>
                 <a href="javascript:void(0);" class="go_gridItem" onclick="openModal(5)">
