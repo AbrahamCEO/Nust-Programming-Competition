@@ -141,7 +141,7 @@ session_start();
             nnashandi@nust.na </p>
       </div>
       <div>
-      <img src="./assets/assets/media/people/female.png">
+      <img src="./assets/assets/media/people/male.png">
       <p><span>Dr Ambrose Azeta </span>Lecturer<br>+264 81 3643798  <br>Email:
         aazeta@nust.na   </p>
         </div>
