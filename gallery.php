@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +10,45 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/grid-overflow@1/src/GridOverflow3D.min.css">
     <link rel="stylesheet" href="gallery.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function showDeRegisterForm() {
+            document.getElementById("deRegisterForm").style.display = "block";
+        }
+
+        function hideDeRegisterForm() {
+            document.getElementById("deRegisterForm").style.display = "none";
+        }
+
+        function showBroadcasts() {
+            document.getElementById("broadcastModal").style.display = "block";
+        }
+
+        function hideBroadcasts() {
+            document.getElementById("broadcastModal").style.display = "none";
+        }
+
+        async function deRegister() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            const response = await fetch('deregister.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                alert('Your account has been deleted successfully.');
+                window.location.href = 'home.php'; // Redirect to home after successful deregistration
+            } else {
+                alert('Error: ' + data.message);
+            }
+        }
+    </script>
 </head>
 <body style="color: #1e3a6a; background: white">
 
@@ -19,7 +61,6 @@
                 <li><a href="home.php">Home</a></li>
                 <li><a href="about.php">About</a></li>
                 <li><a class="active" href="gallery.php">Gallery</a></li>
-                <li><a href="sponsors.php">Sponsors</a></li>
                 <li><a href="contact.php">Contact</a></li>
                 <li>
                     <div class="buttons">
@@ -145,5 +186,91 @@
             caption.innerText = images[currentIndex].caption;
         }
     </script>
+
+    <!-- Broadcast Modal -->
+    <div id="broadcastModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="hideBroadcasts()">&times;</span>
+            <h2>Broadcasts</h2>
+            <div class="broadcasts-container">
+                <?php
+                include "db_connection.php"; // Database connection
+
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+
+                // Fetch broadcasts from the database
+                $sql = "SELECT * FROM broadcasts ORDER BY created_at DESC";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    // Output data for each broadcast
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="broadcast-item">';
+                        echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
+                        echo '<p>' . htmlspecialchars($row['message']) . '</p>';
+                        echo '<span>' . htmlspecialchars($row['created_at']) . '</span>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<p>No broadcasts available.</p>';
+                }
+
+                $conn->close();
+                ?>
+            </div>
+        </div>
+    </div>
+    <style>
+/* Basic styles for modals */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Broadcast Container Styles */
+.broadcasts-container {
+    max-height: 400px; /* Set a max height for the broadcast container */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.broadcast-item {
+    border-bottom: 1px solid #ddd; /* Light border between items */
+    padding: 10px 0; /* Padding around each item */
+}
+</style>
+
 </body>
 </html>

@@ -59,7 +59,6 @@ session_start();
                 <li><a  href="home.php">Home</a></li>
                 <li><a class="active"href="about.php">About</a></li>
                 <li><a href="gallery.php">Gallery</a></li>
-                <li><a href="sponsors.php">Sponsors</a></li>
                 <li><a href="contact.php">Contact</a></li>
                 <li>
                     <div class="buttons">
@@ -138,7 +137,7 @@ session_start();
         <section class="section-involved">
             <h3>Get Involved</h3>
             <p>Whether you're a student looking to participate, a sponsor wanting to support innovation, or a mentor willing to guide young minds, there are many ways to get involved with the NUST Annual Competition. Join us in celebrating creativity and innovation!</p>
-            <a href="/signup.php" class="cta-button">Get Involved</a>
+            <a href="register.php" class="cta-button">Get Involved</a>
         </section>
     </main>
      <!-- Broadcast Modal -->
