@@ -261,6 +261,14 @@ session_start();
     </div>
     <div class="chatbot-messages" id="chatMessages">
         <div class="message bot-message">Hello! How can I help you with the NUST Programming Competition?</div>
+        
+        <!-- Suggestion Buttons -->
+        <div class="suggestions" id="suggestions">
+            <button class="suggestion-btn" onclick="sendSuggestion('who can participate')">who can participate</button>
+            <button class="suggestion-btn" onclick="sendSuggestion('how does it work')">how does it work</button>
+            <button class="suggestion-btn" onclick="sendSuggestion('how many members')">How many members per team</button>
+            <button class="suggestion-btn" onclick="sendSuggestion('competition venue')">competition venue</button>
+        </div>
     </div>
     <div class="chat-input-area">
         <input type="text" class="chat-input" id="chatInput" placeholder="Type your message...">
@@ -294,6 +302,38 @@ function sendMessage() {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: `text=${encodeURIComponent(message)}`
+    })
+    .then(response => response.text())
+    .then(reply => {
+        messagesDiv.innerHTML += `<div class="message bot-message">${reply}</div>`;
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        messagesDiv.innerHTML += `<div class="message bot-message">Sorry, there was an error processing your request.</div>`;
+    });
+    
+    // Scroll to bottom
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+function sendSuggestion(text) {
+    const messagesDiv = document.getElementById('chatMessages');
+    const suggestionsDiv = document.getElementById('suggestions');
+    
+    // Add user message
+    messagesDiv.innerHTML += `<div class="message user-message">${text}</div>`;
+    
+    // Remove suggestion buttons
+    suggestionsDiv.style.display = 'none';
+    
+    // Send to server
+    fetch('message.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `text=${encodeURIComponent(text)}`
     })
     .then(response => response.text())
     .then(reply => {
@@ -454,6 +494,28 @@ document.getElementById('chatInput').addEventListener('keypress', function(e) {
     border-radius: 10px 10px 10px 0;
 }
 
+/* Suggestion Buttons */
+.suggestions {
+    display: none;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.suggestion-btn {
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.suggestion-btn:hover {
+    background-color: #005bb5;
+}
+
 /* Chat Input Area */
 .chat-input-area {
     display: flex;
@@ -478,7 +540,6 @@ document.getElementById('chatInput').addEventListener('keypress', function(e) {
     cursor: pointer;
 }
 </style>
-
 
 
 </body>
